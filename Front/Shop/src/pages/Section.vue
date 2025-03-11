@@ -41,6 +41,8 @@ watch(
   }
 )
 
+watch(() => route.params, rootStore.resetFilters) // Reset filters when changing the URL
+
 onMounted(() => {
   if (route.params.id) {
     rootStore.getItemsBySectionId(props.id)
