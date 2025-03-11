@@ -1,0 +1,44 @@
+upstream uwsgi_app {
+    server unix:/app/Back/ShopBackend/uwsgi_app.sock;
+}
+
+server {
+    listen 80;
+    server_name 194.87.86.112;
+
+    # Логи для отладки и доступа
+    error_log /var/log/nginx/error.log warn;
+    access_log /var/log/nginx/access.log main;
+
+    # Обработка запросов к API (бэкенд Django через uWSGI)
+    location /admin/ {
+        include uwsgi_params;
+        uwsgi_pass unix:/app/Back/ShopBackend/uwsgi_app.sock;
+    }
+
+    location /api/ {
+        include uwsgi_params;
+        uwsgi_pass unix:/app/Back/ShopBackend/uwsgi_app.sock;
+    }
+
+    # Обслуживание статики для фронтенда (Vue.js)
+    location / {
+        root /etc/nginx/html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Обслуживание статических файлов бэкенда Django
+    location /static/ {
+        alias /app/Back/ShopBackend/static/;
+    }
+
+    # Обслуживание медиа-файлов бэкенда Django
+    location /media/ {
+        alias /app/Back/ShopBackend/media/;
+    }
+
+    # Предотвращение циклов переадресации
+    location = /index.html {
+        internal;
+    }
+}

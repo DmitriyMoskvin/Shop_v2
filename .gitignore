@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+
+# Virtual Environment
+venv/
+.env
+variables.env
+
+# Django
+media/
+static/
+*.sqlite3
+migrations/
+
+# Node.js
+node_modules/
+dist/
+.vscode/
+
+# Docker
+data/
+ssl/

@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:14.5
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgres/data
+    env_file:
+      - ./Back/ShopBackend/variables.env
+    environment:
+      POSTGRES_DB: ShopBackend
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+
+  web:
+    build: ./Back/ShopBackend
+    command:
+      [
+        "./wait-for-it.sh",
+        "db:5432",
+        "--",
+        "uwsgi",
+        "--ini",
+        "/app/config/uwsgi/uwsgi.ini",
+      ]
+    restart: always
+    volumes:
+      - .:/app
+    env_file:
+      - ./Back/ShopBackend/variables.env
+    depends_on:
+      - db
+
+  frontend:
+    build: ./Front/Shop
+    ports:
+      - "8080:80"
+    restart: always
+
+  nginx:
+    image: nginx:1.23.1
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/app
+      - ./Front/Shop/dist:/etc/nginx/html
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+      - frontend
