@@ -65,8 +65,10 @@ const addToBasket = () => {
 
   if (existingItem) {
     existingItem.quantity += newBasketProduct.quantity
+    quantity.value = 1
   } else {
     basketProducts.value.push(newBasketProduct)
+    quantity.value = 1
   }
 }
 

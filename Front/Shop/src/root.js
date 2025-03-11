@@ -4,8 +4,8 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 export const useRootStore = defineStore('rootStore', () => {
-  // const URL = 'http://194.87.86.112/api/' //prod
-  const URL = 'http://127.0.0.1:8000/api/' // dev
+  const URL = 'http://194.87.86.112/api/' //prod
+  // const URL = 'http://127.0.0.1:8000/api/' // dev
 
   const items = ref([]) // Товары
   const sections = ref([]) // Разделы/Секции
