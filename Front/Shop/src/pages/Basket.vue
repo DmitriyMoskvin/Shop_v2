@@ -1,4 +1,5 @@
 <script setup>
+import EmptyBasket from '../components/EmptyBasket.vue'
 import { onMounted, ref, watch, computed } from 'vue'
 import { useBasketStore } from '../basket'
 import { useRootStore } from '../root'
@@ -10,6 +11,7 @@ const basketStore = useBasketStore()
 const RootStore = useRootStore()
 const basketProducts = ref([])
 const basketProductsAvailable = computed(() => basketProducts.value.length > 0) // Наличие товаров в корзине
+// const basketProductsAvailable = ref(true)
 
 const router = useRouter()
 
@@ -193,6 +195,10 @@ onMounted(() => {
       <h5>Товаров в корзине: {{ basketStore.quantityOfGoods }}</h5>
     </div>
 
+    <div v-if="!basketProductsAvailable" class="bg-white mb-8">
+      <EmptyBasket />
+    </div>
+
     <div class="bg-white mb-8">
       <div
         v-for="(product, index) in basketProducts"
@@ -244,7 +250,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="mb-8">
+    <div v-show="basketProductsAvailable" class="mb-8">
       <form action="">
         <h5 class="py-7 px-12 bg-white text-2xl bg-[#f2f5f7]">Оформление заказа</h5>
         <div class="py-7 px-12 bg-white text-lg text-[#56593D] flex flex-col">
