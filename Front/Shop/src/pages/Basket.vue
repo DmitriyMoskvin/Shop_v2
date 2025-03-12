@@ -9,6 +9,7 @@ import Inputmask from 'inputmask'
 const basketStore = useBasketStore()
 const RootStore = useRootStore()
 const basketProducts = ref([])
+const basketProductsAvailable = computed(() => basketProducts.value.length > 0) // Наличие товаров в корзине
 
 const router = useRouter()
 
@@ -313,7 +314,15 @@ onMounted(() => {
         <span>{{ totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') }} тг</span>
       </div>
       <div class="bg-[#ff0000] font-bold flex">
-        <button @click="placeAnOrder" class="py-3.5 px-12 text-white text-center grow">
+        <button
+          :disabled="!basketProductsAvailable"
+          @click="placeAnOrder"
+          class="py-3.5 px-12 text-white text-center grow"
+          :class="{
+            'hover:bg-violet-600': basketProductsAvailable,
+            'bg-slate-300': !basketProductsAvailable
+          }"
+        >
           Оформить заказ
         </button>
       </div>
