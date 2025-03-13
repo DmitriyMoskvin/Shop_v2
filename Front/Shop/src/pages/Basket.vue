@@ -11,7 +11,6 @@ const basketStore = useBasketStore()
 const RootStore = useRootStore()
 const basketProducts = ref([])
 const basketProductsAvailable = computed(() => basketProducts.value.length > 0) // Наличие товаров в корзине
-// const basketProductsAvailable = ref(true)
 
 const router = useRouter()
 
