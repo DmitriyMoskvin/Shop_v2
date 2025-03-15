@@ -37,7 +37,11 @@ class CategoriesAdmin(admin.ModelAdmin):
     list_editable = ('isPublished', )
 
 
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('product', 'color', 'size', 'quantity')
+
+
 admin.site.register(Sizes)
 admin.site.register(Colors)
 admin.site.register(ProductImage)
-admin.site.register(Item)
