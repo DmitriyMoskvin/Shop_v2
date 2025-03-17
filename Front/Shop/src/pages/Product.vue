@@ -23,7 +23,7 @@ const selectedSize = ref({
   name: ''
 })
 
-let isOpacityNone = ref(false)
+let activeImageId = ref(null) // ID активной картинки (переменная функции zoom)
 
 let itemDoesNotExist = ref(false)
 
@@ -159,7 +159,9 @@ const enableButton = () => {
 
 //конец верхнего блока
 
-function zoom(e) {
+const zoom = (e, imageId) => {
+  if (activeImageId.value !== imageId) return // Работает только на активном изображении
+
   const zoomer = e.currentTarget
   let offsetX, offsetY, x, y
 
@@ -181,11 +183,12 @@ function zoom(e) {
   zoomer.style.backgroundPosition = `${x}% ${y}%`
 
   if (x > 98 || y > 98 || x < 2 || y < 2) {
-    isOpacityNone.value = false
+    activeImageId.value = null
   }
 }
-function toggleOpacity() {
-  isOpacityNone.value = !isOpacityNone.value
+
+const toggleOpacity = (imageId) => {
+  activeImageId.value = activeImageId.value === imageId ? null : imageId
 }
 </script>
 
@@ -198,26 +201,26 @@ function toggleOpacity() {
             <div class="md:col-span-2">
               <div
                 class="zoom"
-                @mousemove="zoom"
+                @mousemove="(e) => zoom(e, 'main')"
                 :style="{ backgroundImage: `url(${rootStore.product.photo})` }"
               >
                 <img
                   :src="rootStore.product.photo"
-                  @click="toggleOpacity"
-                  :class="{ 'opacity-none': isOpacityNone }"
+                  @click="toggleOpacity('main')"
+                  :class="{ 'opacity-none': activeImageId === 'main' }"
                 />
               </div>
             </div>
             <div v-for="image in rootStore.product.images" :key="image.id" class="col-span-2">
               <div
                 class="zoom"
-                @mousemove="zoom"
+                @mousemove="(e) => zoom(e, image.id)"
                 :style="{ backgroundImage: `url(${image.image})` }"
               >
                 <img
                   :src="image.image"
-                  @click="toggleOpacity"
-                  :class="{ 'opacity-none': isOpacityNone }"
+                  @click="toggleOpacity(image.id)"
+                  :class="{ 'opacity-none': activeImageId === image.id }"
                 />
               </div>
             </div>
@@ -368,5 +371,6 @@ function toggleOpacity() {
 }
 .opacity-none {
   opacity: 0;
+  transition: opacity 0.3s ease;
 }
 </style>
