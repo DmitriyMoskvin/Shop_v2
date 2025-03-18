@@ -73,13 +73,13 @@ onMounted(() => {
   rootStore.getProductById(props.id).then(() => {
     if (rootStore.product.colors.length > 0) {
       //начальное значение для радиокнопки цвета
-      selectedColor.value.id = rootStore.product.colors[rootStore.product.colors.length - 1].id
-      selectedColor.value.name = rootStore.product.colors[rootStore.product.colors.length - 1].name
+      selectedColor.value.id = rootStore.product.colors[0].id
+      selectedColor.value.name = rootStore.product.colors[0].name
     }
     if (rootStore.product.size.length > 0) {
       //начальное значение для радиокнопки размера
-      selectedSize.value.id = rootStore.product.size[rootStore.product.size.length - 1].id
-      selectedSize.value.name = rootStore.product.size[rootStore.product.size.length - 1].name
+      selectedSize.value.id = rootStore.product.size[0].id
+      selectedSize.value.name = rootStore.product.size[0].name
     }
     checkSelectedFilters()
   })
@@ -128,6 +128,29 @@ const checkSelectedFilters = async () => {
       console.log(error)
     }
   }
+}
+
+const updateSelectedSize = (size) => {
+  selectedSize.value = { ...size }
+}
+
+const updateSelectedColor = (color) => {
+  selectedColor.value = { ...color }
+}
+
+const updateAndCheckSelectedFilter = (filterName, filter) => {
+  // Смотрим какой фильтр к нам пришел
+  switch (filterName) {
+    case 'Size':
+      updateSelectedSize(filter)
+      break
+    case 'Color':
+      updateSelectedColor(filter)
+      break
+  }
+
+  // Проверка есть ли такой товар на сервере
+  checkSelectedFilters()
 }
 
 // Функция для деактивации кнопки
@@ -244,10 +267,10 @@ const toggleOpacity = (imageId) => {
                       type="radio"
                       :id="color.name"
                       :value="color.id"
-                      @change="checkSelectedFilters"
+                      @change="updateAndCheckSelectedFilter('Color', color)"
+                      :checked="color.name === selectedColor.name"
                       name="color"
                       class="form_radio px-1 appearance-none"
-                      v-model="selectedColor.id"
                     />
                     <label class="px-1 grow cursor-pointer" :for="color.name"
                       >{{ color.name }}
@@ -268,10 +291,10 @@ const toggleOpacity = (imageId) => {
                       type="radio"
                       :id="size.name"
                       :value="size.id"
-                      @change="checkSelectedFilters"
+                      @change="updateAndCheckSelectedFilter('Size', size)"
+                      :checked="size.name === selectedSize.name"
                       name="size"
                       class="form_radio px-1 appearance-none"
-                      v-model="selectedSize.id"
                     />
                     <label class="px-1 grow cursor-pointer" :for="size.name"
                       >{{ size.name }}
