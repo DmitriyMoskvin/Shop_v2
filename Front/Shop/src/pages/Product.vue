@@ -9,10 +9,7 @@ const rootStore = useRootStore()
 const basketStore = useBasketStore()
 
 const basketProducts = ref([])
-
 const quantity = ref(1)
-// const selectedColor = ref(null)
-// const selectedSize = ref(null)
 
 const selectedColor = ref({
   id: null,
@@ -368,6 +365,7 @@ const toggleOpacity = (imageId) => {
 .zoom img {
   display: block;
   width: 600px;
+  cursor: zoom-in;
 }
 .opacity-none {
   opacity: 0;
