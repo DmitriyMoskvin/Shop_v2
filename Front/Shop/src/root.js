@@ -9,7 +9,7 @@ export const useRootStore = defineStore('rootStore', () => {
 
   const items = ref([]) // Товары
   const sections = ref([]) // Разделы/Секции
-  const product = ref([]) // Определенный товар
+  const product = ref(null) // Определенный товар
   const filters = ref([]) // Фильтры
 
   const selectedCategories = ref([])
@@ -50,7 +50,7 @@ export const useRootStore = defineStore('rootStore', () => {
   }
 
   const getProductById = async (id) => {
-    product.value = {}
+    product.value = null
     try {
       const { data } = await axios.get(`${URL}shop/product/${id}/`)
       product.value = data

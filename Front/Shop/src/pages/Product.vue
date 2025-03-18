@@ -23,9 +23,9 @@ const selectedSize = ref({
   name: ''
 })
 
-let activeImageId = ref(null) // ID активной картинки (переменная функции zoom)
+const activeImageId = ref(null) // ID активной картинки (переменная функции zoom)
 
-let itemDoesNotExist = ref(false)
+const itemDoesNotExist = ref(false)
 
 const props = defineProps({
   id: String
