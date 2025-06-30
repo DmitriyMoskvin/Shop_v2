@@ -24,8 +24,6 @@ services:
         "/app/config/uwsgi/uwsgi.ini",
       ]
     restart: always
-    volumes:
-      - .:/app
     env_file:
       - ./Back/ShopBackend/variables.env
     depends_on:

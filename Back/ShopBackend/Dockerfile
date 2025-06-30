@@ -25,7 +25,8 @@ RUN pip install uwsgi
 
 # copy wait-for-it script and make it executable
 COPY wait-for-it.sh /app/wait-for-it.sh
-RUN chmod +x /app/wait-for-it.sh
 
 # copy project
 COPY . /app
+
+RUN chmod +x /app/wait-for-it.sh
