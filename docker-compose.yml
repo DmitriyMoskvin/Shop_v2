@@ -44,7 +44,6 @@ services:
     restart: always
     volumes:
       - ./config/nginx:/etc/nginx/templates
-      - .:/app
       - frontend_dist:/etc/nginx/html
       - uwsgi_socket:/tmp
     ports:
