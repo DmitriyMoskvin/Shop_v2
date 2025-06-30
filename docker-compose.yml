@@ -26,6 +26,8 @@ services:
     restart: always
     env_file:
       - ./Back/ShopBackend/variables.env
+    volumes:
+      - uwsgi_socket:/tmp
     depends_on:
       - db
 
@@ -44,6 +46,7 @@ services:
       - ./config/nginx:/etc/nginx/templates
       - .:/app
       - frontend_dist:/etc/nginx/html
+      - uwsgi_socket:/tmp
     ports:
       - "80:80"
       - "443:443"
@@ -52,3 +55,4 @@ services:
       - frontend
 volumes:
   frontend_dist:
+  uwsgi_socket:
