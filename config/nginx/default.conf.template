@@ -29,12 +29,12 @@ server {
 
     # Обслуживание статических файлов бэкенда Django
     location /static/ {
-        alias /app/Back/ShopBackend/static/;
+        alias /app/static/;
     }
 
     # Обслуживание медиа-файлов бэкенда Django
     location /media/ {
-        alias /app/Back/ShopBackend/media/;
+        alias /app/media/;
     }
 
     # Предотвращение циклов переадресации
