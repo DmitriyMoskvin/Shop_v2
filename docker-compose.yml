@@ -28,7 +28,7 @@ services:
       - ./Back/ShopBackend/variables.env
     volumes:
       - uwsgi_socket:/tmp
-      - static_volume:/app/static
+      - static_volume:/app/ShopBackend/static
     depends_on:
       - db
 
