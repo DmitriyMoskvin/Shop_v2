@@ -31,6 +31,8 @@ services:
 
   frontend:
     build: ./Front/Shop
+    volumes:
+      - frontend_dist:/etc/nginx/html
     ports:
       - "8080:80"
     restart: always
@@ -41,9 +43,12 @@ services:
     volumes:
       - ./config/nginx:/etc/nginx/templates
       - .:/app
+      - frontend_dist:/etc/nginx/html
     ports:
       - "80:80"
       - "443:443"
     depends_on:
       - web
       - frontend
+volumes:
+  frontend_dist:
