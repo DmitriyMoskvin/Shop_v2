@@ -14,7 +14,6 @@ variables.env
 media/
 static/
 *.sqlite3
-migrations/
 
 # Node.js
 node_modules/
