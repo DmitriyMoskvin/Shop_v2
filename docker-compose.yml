@@ -16,7 +16,7 @@ services:
     build: ./Back/ShopBackend
     command:
       [
-        "./wait-for-it.sh",
+        "/app/wait-for-it.sh",
         "db:5432",
         "--",
         "uwsgi",
