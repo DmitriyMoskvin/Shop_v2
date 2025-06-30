@@ -41,7 +41,7 @@ services:
     volumes:
       - ./config/nginx:/etc/nginx/templates
       - .:/app
-      - ./Front/Shop/dist:/etc/nginx/html
+      - ./Front/dist:/etc/nginx/html
     ports:
       - "80:80"
       - "443:443"
