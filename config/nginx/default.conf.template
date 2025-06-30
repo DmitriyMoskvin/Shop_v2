@@ -1,5 +1,5 @@
 upstream uwsgi_app {
-    server unix:/app/Back/ShopBackend/uwsgi_app.sock;
+    server unix:/tmp/uwsgi_app.sock;
 }
 
 server {
@@ -13,12 +13,12 @@ server {
     # Обработка запросов к API (бэкенд Django через uWSGI)
     location /admin/ {
         include uwsgi_params;
-        uwsgi_pass unix:/app/Back/ShopBackend/uwsgi_app.sock;
+        uwsgi_pass unix:/tmp/uwsgi_app.sock;
     }
 
     location /api/ {
         include uwsgi_params;
-        uwsgi_pass unix:/app/Back/ShopBackend/uwsgi_app.sock;
+        uwsgi_pass unix:/tmp/uwsgi_app.sock;
     }
 
     # Обслуживание статики для фронтенда (Vue.js)
