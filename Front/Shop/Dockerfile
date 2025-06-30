@@ -1,5 +1,5 @@
 # Фаза сборки
-FROM node:14 AS build-stage
+FROM node:20 AS build-stage
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
