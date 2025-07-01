@@ -35,4 +35,7 @@ COPY wait-for-it.sh /app/wait-for-it.sh
 # copy project
 COPY . /app
 
+# permission for all folders
+RUN chown -R www-data:www-data /app
+
 RUN chmod +x /app/wait-for-it.sh
