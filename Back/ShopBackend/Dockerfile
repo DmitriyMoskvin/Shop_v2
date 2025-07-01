@@ -5,7 +5,7 @@ FROM python:3.10.6
 WORKDIR /app
 
 # create folder for logs
-RUN mkdir -p /app/logs
+RUN mkdir -p /app/logs && chown -R www-data:www-data /app/logs
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
