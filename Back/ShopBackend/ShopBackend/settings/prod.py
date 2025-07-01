@@ -12,3 +12,21 @@ DATABASES = {
         'PORT': 5432,        # Стандартный порт PostgreSQL
     }
 }
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/app/logs/error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
