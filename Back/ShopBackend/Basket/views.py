@@ -20,8 +20,7 @@ class TestOrdersApi(APIView):
     def post(self, request):
 
         # Парсим JSON из запроса
-        stream = io.BytesIO(request.body)
-        data = JSONParser().parse(stream)
+        data = request.data
 
         # 1. Создаем заказчика
         customer_data = data['Customer']
