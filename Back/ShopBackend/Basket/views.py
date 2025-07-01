@@ -5,10 +5,6 @@ from rest_framework import status
 from .models import *
 from django.http import JsonResponse
 
-from .serializers import OrdersApiSerializer
-import io
-from rest_framework.parsers import JSONParser
-
 class OrdersApi(APIView):
     def post(self, request):
         print(request.data)
