@@ -29,6 +29,7 @@ services:
     volumes:
       - uwsgi_socket:/tmp
       - static_volume:/app/ShopBackend/static
+      - ./ShopBackend/media:/app/ShopBackend/media
     depends_on:
       - db
 
@@ -48,6 +49,7 @@ services:
       - frontend_dist:/etc/nginx/html
       - uwsgi_socket:/tmp
       - static_volume:/app/static
+      - ./ShopBackend/media:/app/media
     ports:
       - "80:80"
       - "443:443"
