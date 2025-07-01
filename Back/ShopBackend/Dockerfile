@@ -4,6 +4,9 @@ FROM python:3.10.6
 # set work directory
 WORKDIR /app
 
+# create folder for logs
+RUN mkdir -p /app/logs
+
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
