@@ -7,6 +7,9 @@ WORKDIR /app
 # create folder for logs
 RUN mkdir -p /app/logs && chown -R www-data:www-data /app/logs
 
+# create folder for media
+RUN mkdir -p /app/ShopBackend/media && chown -R www-data:www-data /app/ShopBackend/media
+
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
